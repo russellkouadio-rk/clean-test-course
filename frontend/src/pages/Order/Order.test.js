@@ -9,6 +9,7 @@ import OrderContext from '../../context/OrderContext';
 describe('Test Order', () => {
   let orderName;
   let orderItems;
+  afterEach(() => jest.restoreAllMocks());
   beforeEach(() => {
     //Arrange:
     //Setup Order Context
@@ -26,7 +27,7 @@ describe('Test Order', () => {
           return Promise.resolve({
             data: {
               status: 'success',
-              data: 2.5,
+              data: 3.5,
             },
           });
         case `${API_URL}/api/delivery/test-fun/5`:
@@ -79,7 +80,7 @@ describe('Test Order', () => {
     //ASSERT
     //Check for subtotal and delivery fee
     await waitFor(() => {
-      expect(screen.getAllByText('$2.50')).toHaveLength(1);
+      expect(screen.getAllByText('$3.50')).toHaveLength(1);
     });
     expect(screen.getAllByText('$5.00')).toHaveLength(1);
   });
